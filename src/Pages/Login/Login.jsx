@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import loginAnimation from "../../assets/login-animation.json"
 import Lottie from 'lottie-react';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 const Login = () => {
     const {signInUser, googleSignIn} = use(AuthContext)
     const handleSignIn = e => {
@@ -15,12 +16,23 @@ const Login = () => {
          signInUser(email,password)
          .then(result =>{
             console.log(result.user);
-           
+            form.reset()
+           Swal.fire({
+            icon:'success',
+            title:'Login Successful',
+            text:`Welcome back,${result.user.email}!`,
+            timer:2000,
+            showConfirmButton:false,
+           })
          })
          
          .catch(error =>{
             console.log(error);
-            
+             Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: error.message,
+        });
          })
 
     }
@@ -28,11 +40,21 @@ const Login = () => {
          googleSignIn()
          .then(result =>{
             console.log(result.user); 
+            Swal.fire({
+          icon: 'success',
+          title: 'Google Login Successful',
+          timer: 2000,
+          showConfirmButton: false,
+        });
          })
          
          .catch(error =>{
             console.log(error);
-            
+            Swal.fire({
+          icon: 'error',
+          title: 'Google Login Failed',
+          text: error.message,
+        });
          })
     }
     return (

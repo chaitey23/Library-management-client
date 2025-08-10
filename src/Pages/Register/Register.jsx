@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 
 const Register = () => {
     const { createUser, googleSignIn, updateUser } = use(AuthContext);
-    const [passwordError,setPasswordError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
     const handleRegister = e => {
         e.preventDefault();
-setPasswordError("");
+        setPasswordError("");
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
@@ -22,11 +22,11 @@ setPasswordError("");
             return;
         }
         if (!/(?=.*[a-z])/.test(password)) {
-           setPasswordError("Password must contain at least one lowercase letter!")
+            setPasswordError("Password must contain at least one lowercase letter!")
             return;
         }
         if (password.length < 6) {
-         setPasswordError("Password must be at least 6 characters long!")
+            setPasswordError("Password must be at least 6 characters long!")
             return;
         }
 
@@ -46,7 +46,7 @@ setPasswordError("");
                         })
                     })
                     .catch(err => {
-toast.error(err.message)
+                        toast.error(err.message)
                     })
 
 
@@ -58,11 +58,11 @@ toast.error(err.message)
     const handleRegisterGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-Swal.fire({
-      icon: 'success',
+                Swal.fire({
+                    icon: 'success',
                     title: 'Google Login Successful',
                     text: `Welcome ${result.user.displayName || ''}`,
-})
+                })
             })
             .catch(error => {
                 toast.error(error.message)
