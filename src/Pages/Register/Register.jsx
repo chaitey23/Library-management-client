@@ -72,7 +72,7 @@ const Register = () => {
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-6xl bg-white shadow-xl rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
                 <div className="p-10">
-                    <h2 className="text-3xl font-bold mb-8">Create an account</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-[#1a4137]">Create an account</h2>
 
                     <form onSubmit={handleRegister} className="space-y-5">
                         <input
@@ -100,7 +100,8 @@ const Register = () => {
                         />
                         <button
                             type="submit"
-                            className="w-full py-3 bg-yellow-400 rounded-xl font-semibold hover:bg-yellow-500 transition cursor-pointer"
+                            className="w-full py-3
+                             bg-[#c6d936] text-white rounded-xl font-semibold transition cursor-pointer"
                         >
                             Submit
                         </button>
@@ -116,7 +117,7 @@ const Register = () => {
                         </button>
                     </div>
                     <p className="text-sm mt-6 text-center text-gray-500">
-                        Already Have any account? <Link className="text-indigo-600 font-medium" to='/login'>Login </Link>
+                        Already Have any account? <Link className="font-medium text-[#102930]" to='/login'>Login </Link>
                     </p>
                 </div>
                 <div className="hidden md:block bg-cover bg-center h-[600px]" style={{ backgroundImage: `url(${registerPicture})` }}>

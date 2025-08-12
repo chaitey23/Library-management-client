@@ -61,7 +61,7 @@ const Login = () => {
        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className=" grid grid-cols-1 lg:grid-cols-2 max-w-6xl bg-white shadow-xl rounded-3xl overflow-hidden">
                 <div className="p-10">
-                    <h2 className="text-3xl font-bold mb-8">Login Now</h2>
+                    <h2 className="text-3xl font-bold mb-8 text-[#1a4137]">Login Now</h2>
 
                     <form onSubmit={handleSignIn} className="space-y-5">
                         <input
@@ -76,7 +76,7 @@ const Login = () => {
                         />
                         <button
                             type="submit"
-                            className="w-full py-3 bg-yellow-400 rounded-xl font-semibold hover:bg-yellow-500 transition cursor-pointer"
+                            className="w-full py-3 bg-[#c6d936] text-white rounded-xl font-semibold transition cursor-pointer"
                         >
                             Login
                         </button>
@@ -92,7 +92,7 @@ const Login = () => {
                         </button>
                     </div>
                     <p className="text-sm mt-6 text-center text-gray-500">
-                      Don't have an account? <Link    className="text-indigo-600 font-medium" to='/register'>→ Sign Up here</Link>
+                      Don't have an account? <Link    className="font-medium text-[#102930]" to='/register'>→ Sign Up here</Link>
                     </p>
                   
                 </div>

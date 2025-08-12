@@ -1,105 +1,3 @@
-// import React, { useContext, useState } from 'react';
-// import navLogo from '../../assets/bookLogo.jpg';
-// import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
-// import { NavLink } from 'react-router';
-
-// const NavBar = () => {
-//   const { user, signOutUser } = useContext(AuthContext);
-//   const [showModal, setShowModal] = useState(false);
-
-//   const handleSignOut = () => {
-//     signOutUser()
-//       .then(() => {
-//         console.log("Sign-out successfully");
-//         setShowModal(false);
-//       })
-//       .catch(error => {
-//         console.error(error);
-//       });
-//   };
-
-//   const links = (
-//     <>
-//       <li><NavLink to='/'>Home</NavLink></li>
-//       {user && (
-//         <>
-//           <li><NavLink to="/all-books">All Books</NavLink></li>
-//           <li><NavLink to="/add-book">Add Book</NavLink></li>
-//           <li><NavLink to="/borrowed-books">Borrowed Books</NavLink></li>
-//         </>
-//       )}
-//     </>
-//   );
-
-//   return (
-//     <>
-//       <div className="navbar bg-base-100 shadow-sm">
-//                 <div className="navbar-start">
-//           <div className='flex items-center gap-2'>
-//             <img className='h-12 w-auto rounded-full' src={navLogo} alt="Logo" />
-//             <span className="text-2xl font-bold">BookZone</span>
-//           </div>
-//         </div>
-
-        
-//         <div className="navbar-center hidden lg:flex">
-//           <ul className="menu menu-horizontal px-1">{links}</ul>
-//         </div>
-
-        
-//         <div className="navbar-end gap-3">
-//           {user ? (
-//             <div className='flex gap-2 items-center'>
-//               {user.photoURL && (
-//                 <div className='tooltip tooltip-bottom' data-tip={user.displayName || "User"}>
-//                   <img
-//                     className='w-10 h-10 rounded-full object-cover'
-//                     src={user.photoURL}
-//                     alt="User"
-//                   />
-//                 </div>
-//               )}
-//               <button onClick={() => setShowModal(true)} className='btn  btn-sm'>
-//                 Logout
-//               </button>
-//             </div>
-//           ) : (
-//             <>
-//               <NavLink className='btn btn-sm' to='/login'>Login</NavLink>
-//               <NavLink className='btn  btn-sm' to='/register'>Sign Up</NavLink>
-//             </>
-//           )}
-//         </div>
-//       </div>
-
-    
-//       {showModal && (
-//         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50  bg-opacity-40">
-//           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-//             <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
-//             <p className="mb-6">Are you sure you want to log out?</p>
-//             <div className="flex justify-end gap-3">
-//               <button
-//                 onClick={() => setShowModal(false)}
-//                 className="btn btn-sm btn-ghost"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 onClick={handleSignOut}
-//                 className="btn btn-sm btn-error"
-//               >
-//                 Logout
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </>
-//   );
-// };
-
-// export default NavBar;
 import React, { useContext, useState } from 'react';
 import navLogo from '../../assets/bookLogo.jpg';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
@@ -115,21 +13,21 @@ const NavBar = () => {
       .then(() => {
         console.log("Sign-out successfully");
         setShowModal(false);
-        setIsMenuOpen(false); // menu close on logout
+        setIsMenuOpen(false);
       })
       .catch(error => {
         console.error(error);
       });
   };
-
+const activeClass = "underline !bg-transparent text-[#1a4137]";
   const links = (
     <>
-      <li><NavLink to='/' onClick={() => setIsMenuOpen(false)}>Home</NavLink></li>
+      <li className='text-lg text-[#1a4137]'><NavLink to='/' onClick={() => setIsMenuOpen(false)} className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent hover:!bg-[#c6d936] hover:text-white"}>Home</NavLink></li>
       {user && (
         <>
-          <li><NavLink to="/all-books" onClick={() => setIsMenuOpen(false)}>All Books</NavLink></li>
-          <li><NavLink to="/add-book" onClick={() => setIsMenuOpen(false)}>Add Book</NavLink></li>
-          <li><NavLink to="/borrowed-books" onClick={() => setIsMenuOpen(false)}>Borrowed Books</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/all-books" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>All Books</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/add-book" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Add Book</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/borrowed-books" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Borrowed Books</NavLink></li>
         </>
       )}
     </>
@@ -137,9 +35,8 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="navbar bg-base-100 shadow-sm relative">
+      <div className="navbar mt-2 bg-base-100 sticky shadow-sm top-0 z-50">
         <div className="navbar-start flex items-center gap-2">
-          {/* Hamburger button বামে */}
           <button
             className="lg:hidden btn btn-square btn-ghost"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -151,18 +48,13 @@ const NavBar = () => {
                 d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-
-          {/* Logo + site name */}
-          <img className='h-12 w-auto rounded-full' src={navLogo} alt="Logo" />
-          <span className="text-2xl font-bold">BookZone</span>
+          <img className='h-12 w-auto border-2 border-[#1a4137]  rounded-full' src={navLogo} alt="Logo" />
+          <span className=" lg:text-3xl md:text-2xl font-bold text-[#1a4137]">BookZone</span> 
         </div>
-
-        {/* Desktop menu */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
 
-        {/* User login/logout */}
         <div className="navbar-end gap-3">
           {user ? (
             <div className='flex gap-2 items-center'>
@@ -175,31 +67,30 @@ const NavBar = () => {
                   />
                 </div>
               )}
-              <button onClick={() => setShowModal(true)} className='btn btn-sm'>
+              <button onClick={() => setShowModal(true)} className='btn rounded-3xl border-[#1a4137] border-2'>
                 Logout
               </button>
             </div>
           ) : (
             <>
-              <NavLink className='btn btn-sm' to='/login'>Login</NavLink>
-              <NavLink className='btn btn-sm' to='/register'>Sign Up</NavLink>
+              <NavLink className='btn rounded-3xl border-[#1a4137] hover:bg-[#1a4137] hover:text-white' to='/login'>Login</NavLink>
+              <NavLink className='btn rounded-3xl bg-[#1a4137] text-white' to='/register'>Sign Up</NavLink>
             </>
           )}
         </div>
 
-        {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full bg-white shadow-md z-40">
+          <div className="lg:hidden absolute top-full left-0  bg-white shadow-md z-40">
             <ul className="menu menu-vertical p-4 gap-2">{links}</ul>
           </div>
         )}
       </div>
 
-      {/* Logout confirmation modal */}
+      
       {showModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 bg-opacity-40">
           <div className="bg-white p-6 rounded-lg shadow-lg w-80">
-            <h2 className="text-lg font-bold mb-4">Confirm Logout</h2>
+            <h2 className="text-lg text-[#1a4137] font-bold mb-4">Confirm Logout</h2>
             <p className="mb-6">Are you sure you want to log out?</p>
             <div className="flex justify-end gap-3">
               <button
@@ -210,7 +101,7 @@ const NavBar = () => {
               </button>
               <button
                 onClick={handleSignOut}
-                className="btn btn-sm btn-error"
+                className="btn btn-sm text-white bg-[#1a4137]"
               >
                 Logout
               </button>
