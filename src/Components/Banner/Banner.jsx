@@ -36,7 +36,7 @@ const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative w-full h-[600px] mt-5 mb-32 overflow-hidden">
+    <div className="relative w-full h-[600px] mt-5 mb-24 overflow-hidden">
       <Swiper
         modules={[Navigation, Autoplay, Pagination]}
         navigation
