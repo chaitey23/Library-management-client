@@ -56,7 +56,7 @@ const HomeCategories = () => {
                 {cat.desc}
               </p>
               <Link
-                to=""
+                to={`/category/${cat.name}`}
                 className="mt-2 inline-flex items-center gap-2 px-4 py-2 text-[#1a4137] rounded-lg group-hover:text-white transition-colors duration-500"
               >View Books <FaArrowRightLong />
               </Link>

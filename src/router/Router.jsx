@@ -9,37 +9,42 @@ import Login from "../Pages/Login/Login";
 import AllBooks from "../Pages/AllBooks/AllBooks";
 import AddBook from "../Pages/AddBook/AddBook";
 import BorrowedBooks from "../Pages/BorrowedBooks/BorrowedBooks";
+import CategoryBooks from "../Pages/CategoryBooks/CategoryBooks";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component:MainLayout,
+    element: <MainLayout></MainLayout>,
     children: [
-        {
-            index:true,
-            Component:Home
-        },
-        {
-path:"/all-books",
-element:AllBooks
-        },
-        {
-          path:"/add-book",
-          element:AddBook
-        },
-{
-  path:"/borrowed-books",
-  element:BorrowedBooks
-},
-        {
-          path:"/login",
-          Component:Login
-        },
+      {
+        index: true,
+        element:<Home></Home>
+      },
+      {
+        path: "/all-books",
+        element: <AllBooks></AllBooks>
+      },
+      {
+        path: "/add-book",
+        element: <AddBook></AddBook>
+      },
+      {
+        path: "/borrowed-books",
+        element: <BorrowedBooks></BorrowedBooks>
+      },
+      {
+        path: "/login",
+        element: <Login></Login>
+      },
 
-        {
-          path:"/register",
-          Component : Register
-        }
+      {
+        path: "/register",
+        element: <Register></Register>
+      },
+      {
+        path: "/category/:name",
+        element: <CategoryBooks></CategoryBooks>
+      }
     ]
   },
 ]);
