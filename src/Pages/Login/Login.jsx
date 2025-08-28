@@ -1,11 +1,14 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
+import React, { useContext } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import loginAnimation from "../../assets/login-animation.json"
 import Lottie from 'lottie-react';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import Swal from 'sweetalert2';
 const Login = () => {
-    const {signInUser, googleSignIn} = use(AuthContext)
+    const {signInUser, googleSignIn} = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/"
     const handleSignIn = e => {
         e.preventDefault();
         const form = e.target;
@@ -23,6 +26,8 @@ const Login = () => {
             text:`Welcome back,${result.user.email}!`,
             timer:2000,
             showConfirmButton:false,
+           }).then(()=>{
+            navigate(from,{replace:true})
            })
          })
          
@@ -32,7 +37,7 @@ const Login = () => {
           icon: 'error',
           title: 'Login Failed',
           text: error.message,
-        });
+        })
          })
 
     }
@@ -45,7 +50,9 @@ const Login = () => {
           title: 'Google Login Successful',
           timer: 2000,
           showConfirmButton: false,
-        });
+        }).then(()=>{
+            navigate(from,{replace:true})
+        })
          })
          
          .catch(error =>{
