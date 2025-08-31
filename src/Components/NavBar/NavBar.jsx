@@ -19,6 +19,7 @@ const NavBar = () => {
         console.error(error);
       });
   };
+  
 const activeClass = "underline !bg-transparent text-[#1a4137]";
   const links = (
     <>
