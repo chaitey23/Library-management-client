@@ -31,6 +31,8 @@ const AddBook = () => {
             toast.success("Book added successfully!")
             navigate("/all-books")
         } catch (err) {
+            console.log(err);
+            
             toast.error("failed to add a book")
         }
         finally {

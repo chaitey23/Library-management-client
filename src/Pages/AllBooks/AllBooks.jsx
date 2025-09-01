@@ -51,7 +51,7 @@ const AllBooks = () => {
                                     <p>Author: {book.author}</p>
                                     <p>Category: {book.category}</p>
                                     <p>Rating: ⭐ {book.rating}</p>
-                                    <Link to={`/update/${book._id}`}>
+                                    <Link to={`/update-book/${book._id}`}>
                                         <button className="
      
 w-full font-semibold transition-all duration-300  px-2 py-2  rounded-2xl text-[#1a4137] mt-2 hover:text-[#c6d936]  cursor-pointer bg-green-100 hover:bg-[#1a4137]">
@@ -85,7 +85,7 @@ w-full font-semibold transition-all duration-300  px-2 py-2  rounded-2xl text-[#
                                             <td className="p-2 md:text-base">{book.category}</td>
                                             <td className="p-2 md:text-base">⭐ {book.rating}</td>
                                             <td className="p-2 md:text-base ">
-                                                <Link to={`/update/${book._id}`}>
+                                                <Link to={`/update-book/${book._id}`}>
                                                     <button className="text-emerald-950 hover:bg-[#1a4137] hover:text-[#c6d936] cursor-pointer px-3 py-1 rounded-lg">
                                                         Update
                                                     </button>
