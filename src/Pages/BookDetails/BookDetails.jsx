@@ -1,26 +1,39 @@
 import axios from 'axios';
 import { Loader2, Star } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 const BookDetails = () => {
     const { id } = useParams();
     const [book, setBook] = useState(null);
+    const { user } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [returnDate, setReturnDate] = useState("");
+    const [borrowLoading, setBorrowLoading] = useState(false);
     const baseUrl = import.meta.env.VITE_BASE_URL
     useEffect(() => {
         axios.get(`${baseUrl}/book/${id}`)
             .then((res) => {
                 setBook(res.data)
-
+                setLoading(false);
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                setLoading(false)
 
             })
     }, [id, baseUrl]);
-    if (!book) return (
+    if (loading) return (
         <div className="flex justify-center items-center min-h-[60vh]">
             <Loader2 className="w-10 h-10 text-green-700 animate-spin" />
+        </div>
+    )
+    if (!book) return (
+        <div className="text-center py-10 text-xl text-gray-600">
+            Book not found
         </div>
 
     )
@@ -47,15 +60,43 @@ const BookDetails = () => {
         }
         return stars;
     }
+    const handleBorrow = async (e) => {
+        e.preventDefault();
+        setBorrowLoading(true)
+        try {
+            const res = await axios.post(`${baseUrl}/borrow/${book._id}`, {
+                userName: user.displayName,
+                userEmail: user.email,
+                returnDate
+            });
+            if (res.data.message === "Book borrowed successfully") {
+                setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
+                setShowModal(false);
+                setReturnDate("");
+                toast.success("Book borrowed successfully!");
+            } else {
+                toast.error(res.data.message || "Something went wrong!");
+            }
+
+
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went Wrong!")
+        }
+        finally {
+            setBorrowLoading(false)
+        }
+    }
     return (
         <div className='max-w-7xl mx-auto px-4 py-10 mt-8'>
-            <div className='flex flex-col md:flex-row items-center md:items-start gap-8'>
+            <motion.div className='grid md:grid-cols-2 gap-10 bg-white shadow-lg rounded-2xl p-6'
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}>
 
                 <div className='w-full md:w-[320px] flex justify-center'>
                     <img src={book.image} alt={book.name} className='max-h-[400px] object-contain' />
                 </div>
-
-
                 <div className='flex-1 flex flex-col justify-center md:justify-start'>
                     <h1 className='text-4xl font-bold mb-4'>{book.name}</h1>
 
@@ -74,20 +115,60 @@ const BookDetails = () => {
 
                     <p className='text-gray-700 mt-2'>{book.shortDescription}</p>
                     <div className="flex gap-4 mt-6">
-                        <Link
-                            to={`/update-book/${book._id}`}
-                            className="bg-[#c6d936] text-[#1a4137] font-semibold px-6 py-2 rounded shadow hover:bg-[#b0c42d] transition"
-                        >
-                            Update
-                        </Link>
-
-                        <button className="text-green-800 border font-semibold px-6 py-2 rounded shadow hover:bg-[#1a4137]  transition hover:text-[#c6d936] cursor-pointer">
-                            Borrow
+                        <button onClick={() => setShowModal(true)}
+                            disabled={book.quantity === 0}
+                            className={`px-6 py-3 rounded-xl text-lg font-semibold transition 
+              ${book.quantity === 0
+                                    ? "bg-gray-300 cursor-not-allowed"
+                                    : "bg-[#c6d936] text-[#1a4137] hover:bg-[#b0c02f] cursor-pointer"}`}>
+                            {book.quantity === 0 ? "Out of Stock" : "Borrow"}
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
+            </motion.div >
+            {
+                showModal && (
+                    <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-opacity-50 z-50">
+                        <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+                            <h3 className="text-xl text-[#1a4137] font-bold mb-4">Borrow This Book</h3>
+
+                            <form onSubmit={handleBorrow}>
+
+                                <input
+                                    type="text"
+                                    value={user?.displayName || ""}
+                                    readOnly
+                                    className="w-full border p-2 rounded mb-2 bg-gray-100"
+                                />
+
+
+                                <input
+                                    type="email"
+                                    value={user?.email || ""}
+                                    readOnly
+                                    className="w-full border p-2 rounded mb-2 bg-gray-100"
+                                />
+
+                                <input
+                                    type="date"
+                                    required
+                                    value={returnDate}
+                                    onChange={(e) => setReturnDate(e.target.value)}
+                                    className="w-full border p-2 rounded mb-2"
+                                />
+
+                                <div className="flex justify-end gap-2 mt-4">
+                                    <button type="button" onClick={() => setShowModal(false)}
+                                        className="px-4 py-2 bg-gray-400 text-white rounded cursor-pointer">Cancel</button>
+                                    <button type="submit" className="px-4 py-2 bg-[#c6d936] text-[#1a4137] cursor-pointer rounded flex items-center justify-center">{borrowLoading ? <Loader2 className='w-4 h-4 animate-spin'></Loader2> :
+                                        "Confirm"}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                )
+            }
+        </div >
     );
 };
 
