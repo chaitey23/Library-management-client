@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Loader2, Star } from 'lucide-react';
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
+import React, { use, useContext, useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 const BookDetails = () => {
     const { id } = useParams();
     const [book, setBook] = useState(null);
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -73,6 +74,7 @@ const BookDetails = () => {
                 setBook(prev => ({ ...prev, quantity: prev.quantity - 1 }));
                 setShowModal(false);
                 setReturnDate("");
+                navigate("/borrowed-books")
                 toast.success("Book borrowed successfully!");
             } else {
                 toast.error(res.data.message || "Something went wrong!");
