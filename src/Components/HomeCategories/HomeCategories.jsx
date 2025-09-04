@@ -41,23 +41,25 @@ const HomeCategories = () => {
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
             <div
-              className="absolute inset-0 bg-gradient-to-br from-[#1a4137] to-[#c6d936]
-               translate-y-full group-hover:translate-y-0
-               transition-transform duration-500 ease-in-out"
+              className="absolute inset-0 
+bg-gradient-to-br from-[#1a4137] to-[#c6d936] 
+translate-y-0 md:translate-y-full md:group-hover:translate-y-0 
+transition-transform duration-500 ease-in-out
+"
             ></div>
             <div className='relative z-10'>
               <div
-                className="flex  mb-4 text-[#1a4137] group-hover:text-white transition-colors duration-500"
+                className="flex  mb-4 text-white md:text-[#1a4137] group-hover:text-white transition-colors duration-500"
               >
                 {cat.icon}
               </div>
-              <h2 className="text-xl font-bold mb-2 group-hover:text-white transition-colors duration-300">{cat.name}</h2>
-              <p className=" dark:text-gray-600  mb-4 group-hover:text-white/90 transition-colors duration-500 line-clamp-3">
+              <h2 className="text-xl font-bold mb-2 text-white md:text-[#1a4137] group-hover:text-white transition-colors duration-300">{cat.name}</h2>
+              <p className="text-white md:dark:text-gray-600 mb-4 group-hover:text-white/90 transition-colors duration-500 line-clamp-3">
                 {cat.desc}
               </p>
               <Link
                 to={`/category/${cat.name}`}
-                className="mt-2 inline-flex  justify-center items-center  gap-1.5 px-4 py-2 text-[#1a4137] rounded-lg group-hover:text-white transition-colors duration-500"
+                className="mt-2 inline-flex justify-center items-center gap-1.5 px-4 py-2 text-white md:text-[#1a4137] rounded-lg group-hover:text-white transition-colors duration-500"
               >View Books <FaArrowRightLong />
               </Link>
             </div>
