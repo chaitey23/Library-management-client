@@ -13,6 +13,7 @@ import CategoryBooks from "../Pages/CategoryBooks/CategoryBooks";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import BookDetails from "../Pages/BookDetails/BookDetails";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
+import NotFound from "../Pages/Notfound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element:<Home></Home>
+        element: <Home></Home>
       },
       {
         path: "/all-books",
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login></Login>
       },
- 
+
       {
         path: "/register",
         element: <Register></Register>
@@ -55,19 +56,24 @@ const router = createBrowserRouter([
         element: <CategoryBooks></CategoryBooks>
       },
       {
-        path:"/book/:id",
-        element:<PrivateRoute>
+        path: "/book/:id",
+        element: <PrivateRoute>
           <BookDetails></BookDetails>
         </PrivateRoute>
       },
       {
-        path:"/update-book/:id",
-        element:<PrivateRoute>
+        path: "/update-book/:id",
+        element: <PrivateRoute>
           <UpdateBook></UpdateBook>
         </PrivateRoute>
-      }
+      },
+
     ]
   },
+  {
+    path: "*",
+    element: <NotFound></NotFound>
+  }
 ]);
 
 export default router;

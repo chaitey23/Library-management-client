@@ -5,8 +5,10 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const BookDetails = () => {
+    UsePageTitle("BookDetails");
     const { id } = useParams();
     const [book, setBook] = useState(null);
     const navigate = useNavigate()
@@ -83,7 +85,12 @@ const BookDetails = () => {
 
         } catch (error) {
             console.error(error);
-            toast.error("Something went Wrong!")
+            if(error.response && error.response.data?.message){
+                toast.error(error.response.data.message)
+            }
+            else{
+                toast.error("Something went Wrong!")
+            }
         }
         finally {
             setBorrowLoading(false)

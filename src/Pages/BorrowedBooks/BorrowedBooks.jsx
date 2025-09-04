@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import UsePageTitle from '../../hooks/UsePageTitle';
+import { useNavigate } from 'react-router';
 
 const BorrowedBooks = () => {
+    UsePageTitle("BorrowedBooks");
     const { user } = useContext(AuthContext);
     const [borrowed, setBorrowed] = useState([]);
+    const navigate = useNavigate()
     const baseUrl = import.meta.env.VITE_BASE_URL;
 
     useEffect(() => {
@@ -22,7 +26,9 @@ const BorrowedBooks = () => {
             if (res.data.message === "Book returned successfully") {
                 toast.success(res.data.message)
                 setBorrowed(prev => prev.filter(b => b._id !== borrowedId))
+                navigate("/")
             }
+
             else {
                 toast.error(res.data.message || "Something went wrong!")
             }

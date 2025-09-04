@@ -2,11 +2,14 @@ import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const AllBooks = () => {
+    UsePageTitle("All-Books");
     const [books, setBook] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [viewType, setViewType] = useState("card")
+    const [viewType, setViewType] = useState("card");
+    const [showAvailable,setShowAvailable] = useState(false)
     const baseURL = import.meta.env.VITE_BASE_URL;
     useEffect(() => {
         axios.get(`${baseURL}/books`)
@@ -22,13 +25,17 @@ const AllBooks = () => {
     }, [])
     if (loading) {
         return <div className='flex justify-center items-center min-h-[60vh]'>
-            <Loader2 className="w-10 h-10 animate-spin text-green-700"></Loader2>
+            <Loader2 className="w-10 h-10 animate-spin text-green-700">
+            </Loader2>
         </div>
     }
+    const displayedBooks = showAvailable ? books.filter(book => book.quantity > 0):books;
     return (
         <div>
-            <div className="mb-10 flex justify-end mt-4">
-                <label className="mr-2 font-semibold">View:</label>
+            <div className="mb-10 flex justify-between mt-4 items-center">
+              <button className='bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white p-4 rounded-full cursor-pointer' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
+              <div className='flex items-center space-x-2'>
+                  <label className="mr-2 font-semibold">View:</label>
                 <select
                     value={viewType}
                     onChange={(e) => setViewType(e.target.value)}
@@ -37,12 +44,13 @@ const AllBooks = () => {
                     <option value="card">Card View</option>
                     <option value="table">Table View</option>
                 </select>
+              </div>
             </div>
             {
                 viewType === "card" ? (
                     <div className='p-6 grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {
-                            books.map(book => (
+                            displayedBooks.map(book => (
                                 <div key={book._id} className='bg-white border border-gray-200  shadow-xl flex flex-col  p-5 transition-shadow ' >
                                     <div className='flex justify-center mb-4'>
                                         <img src={book.image} alt={book.name} className="h-60 w-auto object-contain mb-4 mx-auto" />
@@ -77,7 +85,7 @@ w-full font-semibold transition-all duration-300  px-2 py-2  rounded-2xl text-[#
                             </thead>
                             <tbody>
                                 {
-                                    books.map(book => (
+                                    displayedBooks.map(book => (
                                         <tr key={book._id} className="text-center border-b hover:bg-gray-50">
                                             <td className="p-2 md:text-base"><img src={book.image} alt={book.name} className="h-20 w-auto mx-auto" /></td>
                                             <td className="p-2 md:text-base">{book.name}</td>

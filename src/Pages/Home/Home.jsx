@@ -3,8 +3,10 @@ import Banner from '../../Components/Banner/Banner';
 import HomeCategories from '../../Components/HomeCategories/HomeCategories';
 import AboutLibrary from '../../Components/AboutLibrary/AboutLibrary';
 import LibraryStats from '../../Components/LibraryStats/LibraryStats';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const Home = () => {
+    UsePageTitle("Home")
     return (
         <div>
             <Banner></Banner>

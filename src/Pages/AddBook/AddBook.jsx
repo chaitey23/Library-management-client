@@ -3,8 +3,10 @@ import { Loader2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const AddBook = () => {
+    UsePageTitle("Add-Book")
     const navigate = useNavigate();
     const initialState = {
         image: "",

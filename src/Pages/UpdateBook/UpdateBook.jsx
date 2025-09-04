@@ -3,8 +3,10 @@ import { Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const UpdateBook = () => {
+  UsePageTitle("UpdateBook");
   const { id } = useParams();
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -171,9 +173,7 @@ const UpdateBook = () => {
             required
           />
         </div>
-       {/* <Link to="/all-books">
-        
-       </Link> */}
+     
        <button
           type="submit"
           disabled={updating}

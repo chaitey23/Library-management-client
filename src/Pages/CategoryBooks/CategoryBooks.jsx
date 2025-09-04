@@ -3,8 +3,10 @@ import { Loader2, Star } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router';
+import UsePageTitle from '../../hooks/UsePageTitle';
 
 const CategoryBooks = () => {
+    UsePageTitle("CategoryBooks");
     const { name } = useParams();
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
