@@ -3,6 +3,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import { GoMail } from "react-icons/go";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const Footer = () => {
   const itemAnimation = {
@@ -64,13 +65,22 @@ const Footer = () => {
               Explore, Borrow, and Read from thousands of books in our collection.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition">
+              <a href="https://www.facebook.com/chaetey001"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition">
                 <FaFacebookF />
               </a>
-              <a href="#" className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition">
+
+              <a href="" className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition" target="_blank" 
+                  rel="noopener noreferrer"
+              >
                 <FaLinkedinIn />
               </a>
-              <a href="#" className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition">
+              <a href="" className="bg-[#1a4137] p-3 rounded-full hover:bg-[#c6d936] hover:text-black transition"
+              target="_blank"
+                  rel="noopener noreferrer"
+>
                 <FaInstagram />
               </a>
             </div>
@@ -110,7 +120,7 @@ const Footer = () => {
         </motion.div>
 
         {/* Bottom Bar */}
-        <motion.div 
+        <motion.div
           className="bg-[#0c1a15] py-4 text-center text-sm text-gray-400"
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}

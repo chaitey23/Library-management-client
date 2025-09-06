@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import UsePageTitle from '../../hooks/UsePageTitle';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AddBook = () => {
     UsePageTitle("Add-Book")
@@ -18,6 +18,7 @@ const AddBook = () => {
         rating: "",
     }
     const baseUrl = import.meta.env.VITE_BASE_URL;
+    const axiosSecure = useAxiosSecure()
     const [bookData, setBookData] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const handleChange = e => {
@@ -28,12 +29,12 @@ const AddBook = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            await axios.post(`${baseUrl}/books`, bookData);
+            await axiosSecure.post(`${baseUrl}/books`, bookData);
             setBookData(initialState)
             toast.success("Book added successfully!")
             navigate("/all-books")
         } catch (err) {
-            console.log(err);
+           console.error(err)
             
             toast.error("failed to add a book")
         }

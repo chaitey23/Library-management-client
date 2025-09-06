@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Loader2, Star } from 'lucide-react';
 import React, { use, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
@@ -6,6 +5,7 @@ import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import UsePageTitle from '../../hooks/UsePageTitle';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const BookDetails = () => {
     UsePageTitle("BookDetails");
@@ -17,9 +17,10 @@ const BookDetails = () => {
     const [showModal, setShowModal] = useState(false);
     const [returnDate, setReturnDate] = useState("");
     const [borrowLoading, setBorrowLoading] = useState(false);
+    const axiosSecure = useAxiosSecure()
     const baseUrl = import.meta.env.VITE_BASE_URL
     useEffect(() => {
-        axios.get(`${baseUrl}/book/${id}`)
+       axiosSecure.get(`${baseUrl}/book/${id}`)
             .then((res) => {
                 setBook(res.data)
                 setLoading(false);
@@ -67,7 +68,7 @@ const BookDetails = () => {
         e.preventDefault();
         setBorrowLoading(true)
         try {
-            const res = await axios.post(`${baseUrl}/borrow/${book._id}`, {
+            const res = await axiosSecure.post(`${baseUrl}/borrow/${book._id}`, {
                 userName: user.displayName,
                 userEmail: user.email,
                 returnDate

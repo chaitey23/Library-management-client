@@ -1,15 +1,16 @@
-import axios from 'axios';
 import { Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import UsePageTitle from '../../hooks/UsePageTitle';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const UpdateBook = () => {
   UsePageTitle("UpdateBook");
   const { id } = useParams();
   const navigate = useNavigate();
   const baseURL = import.meta.env.VITE_BASE_URL;
+  const axiosSecure = useAxiosSecure()
   const [bookData, setBookData] = useState({
     image: "",
     name: "",
@@ -23,7 +24,7 @@ const UpdateBook = () => {
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   useEffect(() => {
-    axios.get(`${baseURL}/book/${id}`)
+    axiosSecure.get(`${baseURL}/book/${id}`)
       .then((res) => {
         setBookData({
           image: res.data.image || "",
@@ -41,7 +42,7 @@ const UpdateBook = () => {
         setLoading(false)
       })
   },
-    [id, baseURL]);
+    [id, baseURL,axiosSecure]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBookData({ ...bookData, [name]: value });
@@ -50,7 +51,7 @@ const UpdateBook = () => {
     e.preventDefault();
     setUpdating(true);
     try {
-      await axios.put(`${baseURL}/book/${id}`, bookData);
+      await axiosSecure.put(`${baseURL}/book/${id}`, bookData);
       toast.success("Book updated successfully!")
       setUpdating(false);
       navigate("/all-books")
