@@ -14,17 +14,27 @@ const BorrowedBooks = () => {
     const baseUrl = import.meta.env.VITE_BASE_URL;
 const axiosSecure = useAxiosSecure()
     useEffect(() => {
-        if (user?.email) {
-          axiosSecure
-                .get(`${baseUrl}/borrowed-books/${user.email}`)
-                .then(res => setBorrowed(res.data))
-                .catch(err => console.error(err))
-                .finally(()=>setLoading(false))
+  if (user?.email) {
+    axiosSecure
+      .get(`${baseUrl}/borrowed-books/${user.email}`)
+      .then(res => {
+        setBorrowed(res.data);
+        if (res.data.length >= 3) {
+          toast.info(" You have reached the maximum borrow limit (3 books)." ,{ autoClose: 3000 });
+        } else if (res.data.length > 0) {
+          toast.success(` You currently have ${res.data.length} borrowed book(s).`,{ autoClose: 3000 });
         }
-        else{
-            setLoading(false)
-        }
-    }, [user,axiosSecure,baseUrl]);
+      })
+      .catch(err => {
+        console.error(err);
+        toast.error("Failed to fetch borrowed books.");
+      })
+      .finally(() => setLoading(false));
+  } else {
+    setLoading(false);
+  }
+}, [user, axiosSecure, baseUrl]);
+
     const handleReturn = async (borrowedId) => {
         try {
             const res = await axiosSecure.put(`${baseUrl}/borrowed-books/return/${borrowedId}`);
