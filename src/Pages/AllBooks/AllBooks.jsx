@@ -32,9 +32,9 @@ const AllBooks = () => {
     const displayedBooks = showAvailable ? books.filter(book => book.quantity > 0):books;
     return (
         <div>
-            <div className="mb-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <button className='w-full md:w-auto text-center bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white p-3 md:p-4 rounded-full cursor-pointer text-sm sm:text-base' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
-              <div className='flex items-center  space-x-2 w-full md:w-auto justify-center md:justify-start'>
+            <div className="mb-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mt-12">
+              <button className='text-center bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white px-6 py-2 md:px-6 md:py-2 rounded-full cursor-pointer text-sm sm:text-base transition hover:from-[#b0c42d] hover:to-[#a0c32d]' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
+              <div className='flex items-center space-x-2 mt-2 md:mt-0'>
                   <label className="font-semibold text-sm sm:text-base">View:</label>
                 <select
                     value={viewType}
