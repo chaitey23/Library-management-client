@@ -36,7 +36,7 @@ const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative w-full h-[600px] mt-5 mb-24 overflow-hidden">
+    <div className="relative w-full h-[60vh] mt-5 mb-24 overflow-hidden">
       <Swiper
         modules={[Navigation, Autoplay, Pagination]}
         navigation
@@ -53,6 +53,7 @@ const Banner = () => {
                 src={slide.image}
                 alt={slide.title}
                 className="w-full h-full object-cover"
+                loading='lazy'
               />
 
               <div className="absolute inset-0 bg-opacity-40"></div>

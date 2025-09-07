@@ -53,7 +53,8 @@ const AllBooks = () => {
                             displayedBooks.map(book => (
                                 <div key={book._id} className='bg-white border border-gray-200  shadow-xl flex flex-col  p-5 transition-shadow ' >
                                     <div className='flex justify-center mb-4'>
-                                        <img src={book.image} alt={book.name} className="h-60 w-auto object-contain mb-4 mx-auto" />
+                                        <img src={book.image} alt={book.name} className="h-60 w-auto object-contain mb-4 mx-auto"
+                                        loading='lazy' />
                                     </div>
                                     <h2 className="text-xl font-semibold mt-2">{book.name}</h2>
                                     <p>Author: {book.author}</p>
