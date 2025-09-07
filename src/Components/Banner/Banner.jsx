@@ -36,7 +36,7 @@ const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative w-full h-[60vh] mt-5 mb-24 overflow-hidden">
+    <div className="relative w-full h-[40vh]  sm:h-[50vh] md:h-[60vh]  mt-5 mb-24 overflow-hidden">
       <Swiper
         modules={[Navigation, Autoplay, Pagination]}
         navigation
@@ -57,19 +57,19 @@ const Banner = () => {
               />
 
               <div className="absolute inset-0 bg-opacity-40"></div>
-              <div className="absolute inset-0 flex flex-col justify-center items-start px-10 md:px-20 text-white max-w-2xl ">
-               <div className='border p-7 backdrop-blur-xs'>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg ">
+              <div className="absolute inset-0 flex flex-col justify-center items-start px-4 sm:px-10 md:px-20 text-white max-w-2xl ">
+               <div className='border sm:p-7 backdrop-blur-xs p-4'>
+                  <h2 className="text-2xl  sm:text-3xl  md:text-5xl font-bold mb-2 sm:mb-4 drop-shadow-lg ">
                   {slide.title}
                 </h2>
-                <p className="mb-6 text-lg md:text-xl drop-shadow-lg">
+                <p className="mb-2 sm:mb-6 text-sm sm:text-lg md:text-xl drop-shadow-lg">
                   {slide.description}
                 </p>
-                <div className="space-x-4">
-                  <button className="bg-[#c6d936] text-[#1a4137] font-semibold px-6 py-2 rounded shadow hover:bg-[#b0c42d] transition">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                  <button className="bg-[#c6d936] text-[#1a4137] font-semibold  px-4 py-2 sm:px-6 sm:py-2 rounded shadow hover:bg-[#b0c42d] transition">
                     {slide.btn1}
                   </button>
-                  <button className="bg-transparent border border-white text-white font-semibold px-6 py-2 rounded hover:bg-white hover:text-[#1a4137] transition">
+                  <button className="bg-transparent border border-white text-white font-semibold px-4 py-2 sm:px-6 sm:py-2 rounded hover:bg-white hover:text-[#1a4137] transition">
                     {slide.btn2}
                   </button></div>
                 </div>

@@ -32,21 +32,23 @@ const AllBooks = () => {
     const displayedBooks = showAvailable ? books.filter(book => book.quantity > 0):books;
     return (
         <div>
-            <div className="mb-10 flex justify-between mt-4 items-center">
-              <button className='bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white p-4 rounded-full cursor-pointer' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
-              <div className='flex items-center space-x-2'>
-                  <label className="mr-2 font-semibold">View:</label>
+            <div className="mb-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <button className='w-full md:w-auto text-center bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white p-3 md:p-4 rounded-full cursor-pointer text-sm sm:text-base' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
+              <div className='flex items-center  space-x-2 w-full md:w-auto justify-center md:justify-start'>
+                  <label className="font-semibold text-sm sm:text-base">View:</label>
                 <select
                     value={viewType}
                     onChange={(e) => setViewType(e.target.value)}
-                    className="select select-bordered"
+                    className="select select-bordered w-full md:w-auto text-sm sm:text-base"
                 >
                     <option value="card">Card View</option>
                     <option value="table">Table View</option>
                 </select>
               </div>
             </div>
-            {
+            {displayedBooks.length === 0? (  <div className='flex justify-center items-center min-h-[40vh] text-xl font-semibold text-gray-500'>
+                    No Books Found
+                </div>):
                 viewType === "card" ? (
                     <div className='p-6 grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {
