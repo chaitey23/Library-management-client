@@ -4,7 +4,7 @@ import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { NavLink } from 'react-router';
 
 const NavBar = () => {
-  const { user, signOutUser } = useContext(AuthContext);
+  const { user, signOutUser, loading } = useContext(AuthContext);
   const [showModal, setShowModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,20 +19,29 @@ const NavBar = () => {
         console.error(error);
       });
   };
-  
-const activeClass = "underline !bg-transparent text-[#1a4137]";
+
+  const activeClass = "underline !bg-transparent text-[#1a4137]";
   const links = (
     <>
-      <li className='text-lg text-[#1a4137]'><NavLink to='/' onClick={() => setIsMenuOpen(false)} className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent hover:!bg-[#c6d936] hover:text-white"}>Home</NavLink></li>
+      <li className='text-lg text-[#1a4137]'><NavLink to='/' onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : "text-[#1a4137] !bg-transparent hover:!bg-[#c6d936] hover:text-white"}>Home</NavLink></li>
       {user && (
         <>
-          <li className='text-lg text-[#1a4137]'><NavLink to="/all-books" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>All Books</NavLink></li>
-          <li className='text-lg text-[#1a4137]'><NavLink to="/add-book" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Add Book</NavLink></li>
-          <li className='text-lg text-[#1a4137]'><NavLink to="/borrowed-books" onClick={() => setIsMenuOpen(false)}className={({isActive}) => isActive ? activeClass :"text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Borrowed Books</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/all-books" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : "text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>All Books</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/add-book" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : "text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Add Book</NavLink></li>
+          <li className='text-lg text-[#1a4137]'><NavLink to="/borrowed-books" onClick={() => setIsMenuOpen(false)} className={({ isActive }) => isActive ? activeClass : "text-[#1a4137] !bg-transparent  hover:!bg-[#c6d936] hover:text-white"}>Borrowed Books</NavLink></li>
         </>
       )}
     </>
   );
+  if (loading) {
+    return (
+      <div className="navbar mt-2 bg-base-100 sticky shadow-sm top-0 z-50">
+        <div className="flex w-full justify-center py-3">
+          <span className="loading loading-spinner text-[#1a4137]"></span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -50,7 +59,7 @@ const activeClass = "underline !bg-transparent text-[#1a4137]";
             </svg>
           </button>
           <img className='h-12 w-auto border-2 border-[#1a4137]  rounded-full' src={navLogo} alt="Logo" />
-          <span className=" lg:text-3xl md:text-2xl font-bold text-[#1a4137]">BookZone</span> 
+          <span className=" lg:text-3xl md:text-2xl font-bold text-[#1a4137]">BookZone</span>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{links}</ul>
@@ -87,7 +96,7 @@ const activeClass = "underline !bg-transparent text-[#1a4137]";
         )}
       </div>
 
-      
+
       {showModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 bg-opacity-40">
           <div className="bg-white p-6 rounded-lg shadow-lg w-80">

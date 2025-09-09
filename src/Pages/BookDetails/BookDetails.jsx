@@ -20,7 +20,7 @@ const BookDetails = () => {
     const axiosSecure = useAxiosSecure()
     const baseUrl = import.meta.env.VITE_BASE_URL
     useEffect(() => {
-       axiosSecure.get(`${baseUrl}/book/${id}`)
+        axiosSecure.get(`${baseUrl}/book/${id}`)
             .then((res) => {
                 setBook(res.data)
                 setLoading(false);
@@ -86,11 +86,11 @@ const BookDetails = () => {
 
         } catch (error) {
             console.error(error);
-            if(error.response && error.response.data?.message){
+            if (error.response && error.response.data?.message) {
                 toast.error(error.response.data.message)
             }
-            else{
-                toast.error("Something went Wrong!")
+            else {
+                toast.error("Failed to borrow  book!")
             }
         }
         finally {

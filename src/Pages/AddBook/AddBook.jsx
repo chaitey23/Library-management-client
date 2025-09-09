@@ -34,8 +34,8 @@ const AddBook = () => {
             toast.success("Book added successfully!")
             navigate("/all-books")
         } catch (err) {
-           console.error(err)
-            
+            console.error(err)
+
             toast.error("failed to add a book")
         }
         finally {
@@ -157,7 +157,7 @@ const AddBook = () => {
                     disabled={loading}
                     className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"    >
                     {
-                        loading ? <Loader2 className="w-5 h-5 animate-spin" ></Loader2> : "Add Book"}
+                        loading ? <Loader2 className="w-5 h-5 animate-spin items-center" ></Loader2> : "Add Book"}
                 </button>
             </form>
 

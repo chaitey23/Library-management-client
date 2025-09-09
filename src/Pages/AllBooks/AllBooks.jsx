@@ -3,17 +3,23 @@ import { Loader2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import UsePageTitle from '../../hooks/UsePageTitle';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AllBooks = () => {
+
+    const axiosSecure = useAxiosSecure()
     UsePageTitle("All-Books");
     const [books, setBook] = useState([]);
     const [loading, setLoading] = useState(true);
     const [viewType, setViewType] = useState("card");
-    const [showAvailable,setShowAvailable] = useState(false)
+    const [showAvailable, setShowAvailable] = useState(false)
     const baseURL = import.meta.env.VITE_BASE_URL;
+
+
     useEffect(() => {
         axios.get(`${baseURL}/books`)
             .then((res) => {
+                console.log(res);
                 setBook(res.data)
                 setLoading(false)
 
@@ -29,26 +35,26 @@ const AllBooks = () => {
             </Loader2>
         </div>
     }
-    const displayedBooks = showAvailable ? books.filter(book => book.quantity > 0):books;
+    const displayedBooks = showAvailable ? books.filter(book => book.quantity > 0) : books;
     return (
         <div>
             <div className="mb-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 mt-12">
-              <button className='text-center bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white px-6 py-2 md:px-6 md:py-2 rounded-full cursor-pointer text-sm sm:text-base transition hover:from-[#b0c42d] hover:to-[#a0c32d]' onClick={()=>setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
-              <div className='flex items-center space-x-2 mt-2 md:mt-0'>
-                  <label className="font-semibold text-sm sm:text-base">View:</label>
-                <select
-                    value={viewType}
-                    onChange={(e) => setViewType(e.target.value)}
-                    className="select select-bordered w-full md:w-auto text-sm sm:text-base"
-                >
-                    <option value="card">Card View</option>
-                    <option value="table">Table View</option>
-                </select>
-              </div>
+                <button className='text-center bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white px-6 py-2 md:px-6 md:py-2 rounded-full cursor-pointer text-sm sm:text-base transition hover:from-[#b0c42d] hover:to-[#a0c32d]' onClick={() => setShowAvailable(!showAvailable)}>   {showAvailable ? "Show All Books" : "Show Available Books"}</button>
+                <div className='flex items-center space-x-2 mt-2 md:mt-0'>
+                    <label className="font-semibold text-sm sm:text-base">View:</label>
+                    <select
+                        value={viewType}
+                        onChange={(e) => setViewType(e.target.value)}
+                        className="select select-bordered w-full md:w-auto text-sm sm:text-base"
+                    >
+                        <option value="card">Card View</option>
+                        <option value="table">Table View</option>
+                    </select>
+                </div>
             </div>
-            {displayedBooks.length === 0? (  <div className='flex justify-center items-center min-h-[40vh] text-xl font-semibold text-gray-500'>
-                    No Books Found
-                </div>):
+            {displayedBooks.length === 0 ? (<div className='flex justify-center items-center min-h-[40vh] text-xl font-semibold text-gray-500'>
+                No Books Found
+            </div>) :
                 viewType === "card" ? (
                     <div className='p-6 grid  grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6'>
                         {
@@ -56,7 +62,7 @@ const AllBooks = () => {
                                 <div key={book._id} className='bg-white border border-gray-200  shadow-xl flex flex-col  p-5 transition-shadow ' >
                                     <div className='flex justify-center mb-4'>
                                         <img src={book.image} alt={book.name} className="h-60 w-auto object-contain mb-4 mx-auto"
-                                        loading='lazy' />
+                                            loading='lazy' />
                                     </div>
                                     <h2 className="text-xl font-semibold mt-2">{book.name}</h2>
                                     <p>Author: {book.author}</p>
