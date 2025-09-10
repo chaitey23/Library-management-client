@@ -28,8 +28,13 @@ const AddBook = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const dataToSend = {
+            ...bookData,
+            quantity: Number(bookData.quantity),
+            rating: Number(bookData.rating)
+        };
         try {
-            await axiosSecure.post(`${baseUrl}/books`, bookData);
+            await axiosSecure.post(`${baseUrl}/books`, dataToSend);
             setBookData(initialState)
             toast.success("Book added successfully!")
             navigate("/all-books")
@@ -155,9 +160,9 @@ const AddBook = () => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"    >
+                    className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg items-center flex justify-center"    >
                     {
-                        loading ? <Loader2 className="w-5 h-5 animate-spin items-center" ></Loader2> : "Add Book"}
+                        loading ? <Loader2 className="w-5 h-5 animate-spin " ></Loader2> : "Add Book"}
                 </button>
             </form>
 

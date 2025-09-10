@@ -28,7 +28,7 @@ const UpdateBook = () => {
       .then((res) => {
         setBookData({
           image: res.data.image || "",
-          name:res.data.name || "",
+          name: res.data.name || "",
           quantity: res.data.quantity || "",
           author: res.data.author || "",
           category: res.data.category || "Novel",
@@ -42,7 +42,7 @@ const UpdateBook = () => {
         setLoading(false)
       })
   },
-    [id, baseURL,axiosSecure]);
+    [id, baseURL, axiosSecure]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBookData({ ...bookData, [name]: value });
@@ -50,8 +50,13 @@ const UpdateBook = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     setUpdating(true);
+    const dataToSend = {
+      ...bookData,
+      quantity: Number(bookData.quantity),
+      rating: Number(bookData.rating)
+    };
     try {
-      await axiosSecure.put(`${baseURL}/book/${id}`, bookData);
+      await axiosSecure.put(`${baseURL}/book/${id}`, dataToSend);
       toast.success("Book updated successfully!")
       setUpdating(false);
       navigate("/all-books")
@@ -174,8 +179,8 @@ const UpdateBook = () => {
             required
           />
         </div>
-     
-       <button
+
+        <button
           type="submit"
           disabled={updating}
           className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"

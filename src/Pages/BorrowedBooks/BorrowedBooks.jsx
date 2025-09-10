@@ -55,10 +55,11 @@ const BorrowedBooks = () => {
                         <span className="ml-2 text-lg text-gray-600">Loading borrowed books...</span>
                     </div>
                 ) : borrowed.length === 0 ? (
-
-                    <p className="text-gray-600 text-lg text-center">
-                        You have no borrowed books.
-                    </p>
+                    <div className="flex items-center justify-center h-64">
+                        <p className="text-[#1a4137] font-bold text-center text-3xl">
+                            You have no borrowed books.
+                        </p>
+                    </div>
                 ) : (
 
                     <div>
@@ -113,9 +114,10 @@ const BorrowedBooks = () => {
                             ))}
                         </div>
                     </div>
-                )}
-            </div>
-        </div>
+                )
+                }
+            </div >
+        </div >
     );
 };
 
