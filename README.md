@@ -28,16 +28,17 @@ This is the **frontend** of the Library Management System built with React. It p
 - **React Hook Form**  
 
 
-## 🖼️ Screenshots
+## 📸 Screenshots
 
 ### Home Page
 ![Home Page](./screenshort-Home.png)
 
-### Book Categories (Private Route)
-![Book Categories](./Screenshot-Book%20Categories.png)
+### Book Categories 
+![Book Categories](./Screenshot-Book-Categories.png)
 
-### Borrowed Books (Private Route)
-![Borrowed Books](./screenshort-Borrowed%20Books.png)
+### Borrowed Books
+![Borrowed Books](./screenshort-Borrowed-Books.png)
+
 
 
 ## ⚙️ Setup & Installation  
