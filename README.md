@@ -34,10 +34,10 @@ This is the **frontend** of the Library Management System built with React. It p
 ![Home Page](./screenshort-Home.png)
 
 ### Book Categories 
-![Book Categories](./Screenshot-Book-Categories.png)
+![Book Categories](./Screenshot-BookCategories.png)
 
 ### Borrowed Books
-![Borrowed Books](./screenshort-Borrowed-Books.png)
+![Borrowed Books](./screenshort-BorrowedBooks.png)
 
 
 
