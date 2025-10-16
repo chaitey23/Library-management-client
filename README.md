@@ -27,13 +27,18 @@ This is the **frontend** of the Library Management System built with React. It p
 - **React Rating Stars Component**  
 - **React Hook Form**  
 
-## 🖼️ Screenshots 
-### Home Page 
-![Home Page](./screenshort-Home.png) 
-### Book Categories (Private Route) 
+
+## 🖼️ Screenshots
+
+### Home Page
+![Home Page](./screenshort-Home.png)
+
+### Book Categories (Private Route)
 ![Book Categories](./Screenshot-Book%20Categories.png)
-### Borrowed Books (private Route)
-![Browse details Tips](./screenshort-Borrowed%20Books.png)
+
+### Borrowed Books (Private Route)
+![Borrowed Books](./screenshort-Borrowed%20Books.png)
+
 
 ## ⚙️ Setup & Installation  
 Follow these steps to run the project locally:  
