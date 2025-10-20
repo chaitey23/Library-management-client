@@ -14,6 +14,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import BookDetails from "../Pages/BookDetails/BookDetails";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
 import NotFound from "../Pages/Notfound/NotFound";
+import Contact from "../Pages/Contact/Contact";
 
 const router = createBrowserRouter([
   {
@@ -26,9 +27,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-books",
-        element: <PrivateRoute>
+        element:
           <AllBooks></AllBooks>
-        </PrivateRoute>
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
       },
       {
         path: "/add-book",
