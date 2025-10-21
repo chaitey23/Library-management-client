@@ -6,7 +6,7 @@ import LibraryStats from '../../Components/LibraryStats/LibraryStats';
 import UsePageTitle from '../../hooks/UsePageTitle';
 
 const Home = () => {
-    UsePageTitle("Home")
+    UsePageTitle("Home");
     return (
         <div>
             <Banner></Banner>

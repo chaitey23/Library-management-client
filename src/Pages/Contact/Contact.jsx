@@ -1,4 +1,3 @@
-// Contact.jsx - Compact Professional Contact Page
 import React, { useState } from 'react';
 import {
     FaEnvelope,
