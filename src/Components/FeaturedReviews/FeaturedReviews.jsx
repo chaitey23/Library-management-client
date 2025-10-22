@@ -8,7 +8,7 @@ const FeaturedReviews = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Temporary data - কারণ আপনার MongoDB-তে এখনো reviews collection এ empty
+
         const tempReviews = [
             {
                 _id: 1,

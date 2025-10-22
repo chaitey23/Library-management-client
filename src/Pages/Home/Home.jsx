@@ -5,6 +5,7 @@ import AboutLibrary from '../../Components/AboutLibrary/AboutLibrary';
 import LibraryStats from '../../Components/LibraryStats/LibraryStats';
 import UsePageTitle from '../../hooks/UsePageTitle';
 import FeaturedReviews from '../../Components/FeaturedReviews/FeaturedReviews';
+import FeaturedBooks from '../../Components/FeaturedBooks/FeaturedBooks';
 
 
 const Home = () => {
@@ -12,6 +13,7 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
+            <FeaturedBooks></FeaturedBooks>
             <HomeCategories></HomeCategories>
             <AboutLibrary></AboutLibrary>
             <LibraryStats></LibraryStats>
