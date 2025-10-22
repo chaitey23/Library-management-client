@@ -19,10 +19,11 @@ const UpdateBook = () => {
     category: "Novel",
     shortDesc: "",
     rating: "",
-
+    price: "" // Price field add করুন
   })
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
+
   useEffect(() => {
     axiosSecure.get(`${baseURL}/book/${id}`)
       .then((res) => {
@@ -34,6 +35,7 @@ const UpdateBook = () => {
           category: res.data.category || "Novel",
           shortDesc: res.data.shortDescription || "",
           rating: res.data.rating || "",
+          price: res.data.price || "" // Price field add করুন
         })
         setLoading(false);
       }).catch((err) => {
@@ -43,17 +45,20 @@ const UpdateBook = () => {
       })
   },
     [id, baseURL, axiosSecure]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBookData({ ...bookData, [name]: value });
   };
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     setUpdating(true);
     const dataToSend = {
       ...bookData,
       quantity: Number(bookData.quantity),
-      rating: Number(bookData.rating)
+      rating: Number(bookData.rating),
+      price: Number(bookData.price) // Price convert করুন number-এ
     };
     try {
       await axiosSecure.put(`${baseURL}/book/${id}`, dataToSend);
@@ -66,14 +71,16 @@ const UpdateBook = () => {
       setUpdating(false)
     }
   };
+
   if (loading) {
     return <div className="flex justify-center items-center min-h-[60vh]">
       <Loader2 className="w-10 h-10 animate-spin text-green-700" />
     </div>
   }
+
   return (
     <div className="max-w-3xl mx-auto p-4 md:p-8 bg-base-100 shadow-2xl rounded-lg mt-8">
-      <h1 className="text-2xl md:text-4xl font-extrabold  text-center mb-6 text-[#1a4137] italic">
+      <h1 className="text-2xl md:text-4xl font-extrabold text-center mb-6 text-[#1a4137] italic">
         Update Book
       </h1>
       <form onSubmit={handleUpdate} className="space-y-6">
@@ -104,8 +111,6 @@ const UpdateBook = () => {
           </div>
         </div>
 
-
-
         <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
           <div>
             <label className="block font-semibold mb-1">Quantity</label>
@@ -133,9 +138,9 @@ const UpdateBook = () => {
             />
           </div>
         </div>
-        <div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+          <div>
             <label className="block font-semibold mb-1">Category</label>
             <select
               name="category"
@@ -151,18 +156,34 @@ const UpdateBook = () => {
             </select>
           </div>
 
+          {/* PRICE FIELD ADD করুন */}
           <div>
-            <label className="block font-semibold mb-1">Short Description</label>
+            <label className="block font-semibold mb-1">Price ($)</label>
             <input
-              type="text"
-              name="shortDesc"
-              placeholder="Brief Description"
-              value={bookData.shortDesc}
+              type="number"
+              name="price"
+              placeholder="Enter Book Price"
+              value={bookData.price}
               onChange={handleChange}
+              min="0"
+              step="0.01"
               className="input input-bordered w-full"
               required
             />
           </div>
+        </div>
+
+        <div>
+          <label className="block font-semibold mb-1">Short Description</label>
+          <input
+            type="text"
+            name="shortDesc"
+            placeholder="Brief Description"
+            value={bookData.shortDesc}
+            onChange={handleChange}
+            className="input input-bordered w-full"
+            required
+          />
         </div>
 
         <div>
@@ -183,14 +204,14 @@ const UpdateBook = () => {
         <button
           type="submit"
           disabled={updating}
-          className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg"
+          className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg flex justify-center items-center"
         >
-          {updating ? "Updating..." : "Update Book"}
+          {updating ? <Loader2 className="w-5 h-5 animate-spin" /> : "Update Book"}
         </button>
       </form>
 
       <p className="mt-6 text-gray-600 text-center italic">
-        This book will be added to the library system for students to borrow.
+        This book will be updated in the library system.
       </p>
     </div>
   );

@@ -16,22 +16,26 @@ const AddBook = () => {
         category: "Novel",
         shortDesc: "",
         rating: "",
+        price: "",
     }
     const baseUrl = import.meta.env.VITE_BASE_URL;
     const axiosSecure = useAxiosSecure()
     const [bookData, setBookData] = useState(initialState);
     const [loading, setLoading] = useState(false);
+
     const handleChange = e => {
         const { name, value } = e.target;
         setBookData({ ...bookData, [name]: value })
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         const dataToSend = {
             ...bookData,
             quantity: Number(bookData.quantity),
-            rating: Number(bookData.rating)
+            rating: Number(bookData.rating),
+            price: Number(bookData.price)
         };
         try {
             await axiosSecure.post(`${baseUrl}/books`, dataToSend);
@@ -40,17 +44,16 @@ const AddBook = () => {
             navigate("/all-books")
         } catch (err) {
             console.error(err)
-
-            toast.error("failed to add a book")
+            toast.error("Failed to add a book")
         }
         finally {
             setLoading(false);
-
         }
     }
+
     return (
         <div className="max-w-3xl mx-auto p-4 md:p-8 bg-base-100 shadow-2xl rounded-lg mt-8">
-            <h1 className="text-2xl md:text-4xl font-extrabold  text-center mb-6 text-[#1a4137] italic">
+            <h1 className="text-2xl md:text-4xl font-extrabold text-center mb-6 text-[#1a4137] italic">
                 Add New Book
             </h1>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -81,8 +84,6 @@ const AddBook = () => {
                     </div>
                 </div>
 
-
-
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                     <div>
                         <label className="block font-semibold mb-1">Quantity</label>
@@ -110,9 +111,9 @@ const AddBook = () => {
                         />
                     </div>
                 </div>
-                <div>
 
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    <div>
                         <label className="block font-semibold mb-1">Category</label>
                         <select
                             name="category"
@@ -128,18 +129,34 @@ const AddBook = () => {
                         </select>
                     </div>
 
+                    {/* New Price Field */}
                     <div>
-                        <label className="block font-semibold mb-1">Short Description</label>
+                        <label className="block font-semibold mb-1">Price ($)</label>
                         <input
-                            type="text"
-                            name="shortDesc"
-                            placeholder="Brief Description"
-                            value={bookData.shortDesc}
+                            type="number"
+                            name="price"
+                            placeholder="Enter Book Price"
+                            value={bookData.price}
                             onChange={handleChange}
+                            min="0"
+                            step="0.01"
                             className="input input-bordered w-full"
                             required
                         />
                     </div>
+                </div>
+
+                <div>
+                    <label className="block font-semibold mb-1">Short Description</label>
+                    <input
+                        type="text"
+                        name="shortDesc"
+                        placeholder="Brief Description"
+                        value={bookData.shortDesc}
+                        onChange={handleChange}
+                        className="input input-bordered w-full"
+                        required
+                    />
                 </div>
 
                 <div>
@@ -160,9 +177,11 @@ const AddBook = () => {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg items-center flex justify-center"    >
+                    className="w-full bg-[#1a4137] hover:bg-[#16352d] text-[#c6d936] font-bold p-3 rounded-lg mt-4 cursor-pointer transition-all duration-300 shadow-md hover:shadow-lg items-center flex justify-center"
+                >
                     {
-                        loading ? <Loader2 className="w-5 h-5 animate-spin " ></Loader2> : "Add Book"}
+                        loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Add Book"
+                    }
                 </button>
             </form>
 
