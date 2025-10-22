@@ -1,5 +1,5 @@
 import { Loader2, Star } from 'lucide-react';
-import React, { use, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { motion } from 'framer-motion';
