@@ -18,7 +18,6 @@ const AllBooks = () => {
     useEffect(() => {
         axios.get(`${baseURL}/books`)
             .then((res) => {
-                console.log(res);
                 setBook(res.data)
                 setLoading(false)
             })
@@ -28,7 +27,6 @@ const AllBooks = () => {
             })
     }, [])
 
-    // Sorting functionality
     const getSortedBooks = () => {
         let sortedBooks = [...displayedBooks];
 

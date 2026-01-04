@@ -10,7 +10,7 @@ const useAxiosSecure = () => {
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
-      
+
         const requestInterceptor = axiosInstance.interceptors.request.use(config => {
             if (user?.accessToken) {
                 config.headers.authorization = `Bearer ${user.accessToken}`;

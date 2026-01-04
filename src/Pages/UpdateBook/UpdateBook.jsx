@@ -19,7 +19,7 @@ const UpdateBook = () => {
     category: "Novel",
     shortDesc: "",
     rating: "",
-    price: "" // Price field add করুন
+    price: ""
   })
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
@@ -35,7 +35,7 @@ const UpdateBook = () => {
           category: res.data.category || "Novel",
           shortDesc: res.data.shortDescription || "",
           rating: res.data.rating || "",
-          price: res.data.price || "" // Price field add করুন
+          price: res.data.price || ""
         })
         setLoading(false);
       }).catch((err) => {
