@@ -16,7 +16,6 @@ const FeaturedBooks = () => {
             const response = await fetch('https://library-management-level-1.vercel.app/books');
             const allBooks = await response.json();
 
-            // Get highest rated books or latest books
             const highestRated = allBooks
                 .sort((a, b) => b.rating - a.rating)
                 .slice(0, 4);
@@ -69,7 +68,6 @@ const FeaturedBooks = () => {
                 </p>
             </motion.div>
 
-            {/* Books Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto'>
                 {featuredBooks.map((book, index) => (
                     <motion.div
@@ -80,7 +78,6 @@ const FeaturedBooks = () => {
                         whileHover={{ scale: 1.05 }}
                         className="group bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300"
                     >
-                        {/* Book Image */}
                         <div className="relative h-48 overflow-hidden">
                             <img
                                 src={book.image || "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400"}
@@ -94,7 +91,6 @@ const FeaturedBooks = () => {
                             </div>
                         </div>
 
-                        {/* Book Content */}
                         <div className="p-6">
                             <h3 className="text-xl font-bold text-[#1a4137] mb-2 line-clamp-1">
                                 {book.name}
@@ -140,7 +136,6 @@ const FeaturedBooks = () => {
                                 </span>
                             </div>
 
-                            {/* Action Buttons */}
                             <div className="flex gap-2">
                                 <Link
                                     to={`/book/${book._id}`}

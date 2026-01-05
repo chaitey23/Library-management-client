@@ -3,11 +3,15 @@ import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../Firebase/firebase.init';
 import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 
 const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const axiosSecure = useAxiosSecure(user);
+
     console.log("BASE URL:", import.meta.env.VITE_BASE_URL);
 
     const createUser = (email, password) => {
@@ -42,8 +46,10 @@ const AuthProvider = ({ children }) => {
                 };
                 try {
                     await axios.post(`${import.meta.env.VITE_BASE_URL}/users`, userInfo)
+                    const res = await axiosSecure.get(`/users/admin/${currentUser.email}`);
+                    setIsAdmin(res.data.admin);
                 } catch (error) {
-                    console.error("User save failed", error);
+                    console.error("Admin check failed", error);
 
                 }
             }
@@ -57,6 +63,7 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         loading,
         user,
+        isAdmin,
         createUser,
         signInUser,
         signOutUser,

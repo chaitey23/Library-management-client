@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { Loader2 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import UsePageTitle from '../../hooks/UsePageTitle';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 
 const AllBooks = () => {
     const axiosSecure = useAxiosSecure()
@@ -14,7 +15,7 @@ const AllBooks = () => {
     const [showAvailable, setShowAvailable] = useState(false);
     const [sortOption, setSortOption] = useState("");
     const baseURL = import.meta.env.VITE_BASE_URL;
-
+    const { isAdmin } = useContext(AuthContext);
     useEffect(() => {
         axios.get(`${baseURL}/books`)
             .then((res) => {
@@ -148,14 +149,13 @@ const AllBooks = () => {
                                 <p className="text-gray-600 mb-1"><span className="font-semibold">Category:</span> {book.category}</p>
                                 <p className="text-gray-600 mb-2"><span className="font-semibold">Rating:</span> ⭐ {book.rating}/5</p>
 
-                                {/* Price Display - Add this */}
+
                                 {book.price && (
                                     <p className="text-lg font-bold text-[#1a4137] mb-4">
                                         Price: ${book.price}
                                     </p>
                                 )}
 
-                                {/* Quantity Status */}
                                 <div className="mb-4">
                                     <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${book.quantity > 0
                                         ? 'bg-green-100 text-green-800'
@@ -164,16 +164,31 @@ const AllBooks = () => {
                                         {book.quantity > 0 ? `${book.quantity} Available` : 'Out of Stock'}
                                     </span>
                                 </div>
-
-                                {/* Update Button */}
-                                <Link
-                                    to={`/update-book/${book._id}`}
-                                    className="mt-auto"
-                                >
-                                    <button className="w-full bg-[#1a4137] text-white font-semibold py-3 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300 transform hover:scale-105">
-                                        Update Book
-                                    </button>
+                                <Link to={`/book/${book._id}`} className="
+    font-medium 
+    opacity-100 md:opacity-0 
+    md:group-hover:opacity-100 
+    transition-opacity duration-300 
+    text-right text-[#1a4137] hover:underline
+  ">
+                                    VIEW DETAILS
                                 </Link>
+                                {
+                                    isAdmin && (
+                                        <Link
+                                            to={`/update-book/${book._id}`}
+                                            className="mt-auto"
+                                        >
+                                            <button className="w-full bg-[#1a4137] text-white font-semibold py-3 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300 transform hover:scale-105">
+                                                Update Book
+                                            </button>
+                                        </Link>
+                                    )
+                                }
+
+                                <div className="mt-4 flex gap-2">
+
+                                </div>
                             </div>
                         </div>
                     ))}
