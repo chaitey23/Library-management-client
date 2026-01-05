@@ -1,6 +1,6 @@
 import React, { use, useState } from 'react';
 import registerPicture from '../../assets/register.jpg'
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 const Register = () => {
     const { createUser, googleSignIn, updateUser } = use(AuthContext);
     const [passwordError, setPasswordError] = useState("");
+    const location = useLocation();
+    const navigate = useNavigate();
     const handleRegister = e => {
         e.preventDefault();
         setPasswordError("");
@@ -16,7 +18,6 @@ const Register = () => {
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photo.value;
-        console.log(name, email, password, photo);
         if (!/(?=.*[A-Z])/.test(password)) {
             setPasswordError("Password must contain at least one uppercase letter!")
             return;
@@ -44,6 +45,8 @@ const Register = () => {
                             title: 'Registration Successful!',
                             text: 'Welcome to our website!',
                         })
+                        form.reset();
+                        navigate(location.state?.form || "/")
                     })
                     .catch(err => {
                         toast.error(err.message)
@@ -63,6 +66,7 @@ const Register = () => {
                     title: 'Google Login Successful',
                     text: `Welcome ${result.user.displayName || ''}`,
                 })
+                navigate(location.state?.from || "/")
             })
             .catch(error => {
                 toast.error(error.message)

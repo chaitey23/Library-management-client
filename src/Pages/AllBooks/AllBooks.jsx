@@ -62,7 +62,6 @@ const AllBooks = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            {/* Header Section */}
             <div className="mb-8 text-center">
                 <h1 className="text-4xl font-bold text-[#1a4137] mb-4">All Books</h1>
                 <p className="text-gray-600 max-w-2xl mx-auto">
@@ -70,21 +69,18 @@ const AllBooks = () => {
                 </p>
             </div>
 
-            {/* Controls Section */}
             <div className="mb-8 flex flex-col lg:flex-row justify-between items-center gap-4 bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-                    {/* Available Books Toggle */}
                     <button
-                        className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${showAvailable
+                        className={`px-6 py-3 rounded-full cursor-pointer font-semibold transition-all duration-300 ${showAvailable
                             ? 'bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            : ' text-gray-700 hover:bg-gray-200 cursor-pointer border-2 border-[#c6d936]'
                             }`}
                         onClick={() => setShowAvailable(!showAvailable)}
                     >
                         {showAvailable ? "Show All Books" : "Show Available Only"}
                     </button>
 
-                    {/* Results Count */}
                     <div className="flex items-center px-4 py-3 bg-[#1a4137] text-white rounded-full">
                         <span className="font-semibold">
                             {sortedBooks.length} {sortedBooks.length === 1 ? 'Book' : 'Books'} Found
@@ -93,7 +89,6 @@ const AllBooks = () => {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-                    {/* Sorting Dropdown */}
                     <div className="flex items-center gap-2">
                         <label className="font-semibold text-[#1a4137] whitespace-nowrap">Sort by:</label>
                         <select
@@ -132,14 +127,12 @@ const AllBooks = () => {
                     <p className="text-gray-600">Try adjusting your filters or check back later.</p>
                 </div>
             ) : viewType === "card" ? (
-                // Card View - Uniform Cards
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'>
                     {sortedBooks.map(book => (
                         <div
                             key={book._id}
                             className='bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden group'
                         >
-                            {/* Uniform Image Container */}
                             <div className='h-64 overflow-hidden bg-gray-100 flex items-center justify-center p-4'>
                                 <img
                                     src={book.image}
@@ -149,7 +142,6 @@ const AllBooks = () => {
                                 />
                             </div>
 
-                            {/* Card Content - Uniform height */}
                             <div className='p-5 flex flex-col flex-grow'>
                                 <h2 className="text-xl font-bold text-[#1a4137] mb-2 line-clamp-2">{book.name}</h2>
                                 <p className="text-gray-600 mb-1"><span className="font-semibold">Author:</span> {book.author}</p>
@@ -187,7 +179,6 @@ const AllBooks = () => {
                     ))}
                 </div>
             ) : (
-                // Table View
                 <div className='bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden'>
                     <div className='overflow-x-auto'>
                         <table className="min-w-full">
