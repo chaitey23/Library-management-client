@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const Register = () => {
     const { createUser, googleSignIn, updateUser } = useContext(AuthContext);
@@ -40,7 +41,11 @@ const Register = () => {
                     displayName: name,
                     photoURL: photo,
                 })
-                    .then(() => {
+                    .then(async () => {
+                        await axios.post(`${import.meta.env.VITE_BASE_URL}/users`, {
+                            name: name,
+                            email: email
+                        });
                         Swal.fire({
                             icon: 'success',
                             title: 'Registration Successful!',
@@ -121,7 +126,6 @@ const Register = () => {
                         </button>
                     </form>
 
-                    {/* Social Login */}
                     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6">
                         <button
                             onClick={handleRegisterGoogleSignIn}
