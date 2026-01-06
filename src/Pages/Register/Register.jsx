@@ -34,29 +34,22 @@ const Register = () => {
             setPasswordError('Password must be at least 6 characters long!');
             return;
         }
-
         createUser(email, password)
             .then(() => {
-                updateUser({
-                    displayName: name,
-                    photoURL: photo,
-                })
+                updateUser({ displayName: name, photoURL: photo })
                     .then(async () => {
                         await axios.post(`${import.meta.env.VITE_BASE_URL}/users`, {
                             name: name,
                             email: email
                         });
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Registration Successful!',
-                            text: 'Welcome to our website!',
-                        });
+                        Swal.fire({ icon: 'success', title: 'Registration Successful!', text: 'Welcome!' });
                         form.reset();
                         navigate(location.state?.from || '/');
                     })
-                    .catch((err) => toast.error(err.message));
+                    .catch(err => toast.error(err.message));
             })
-            .catch((error) => toast.error(error.message));
+            .catch(err => toast.error(err.message));
+
     };
 
     const handleRegisterGoogleSignIn = () => {
