@@ -11,9 +11,6 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAdmin, setIsAdmin] = useState(false);
     const axiosSecure = useAxiosSecure(user);
-
-    console.log("BASE URL:", import.meta.env.VITE_BASE_URL);
-
     const createUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
