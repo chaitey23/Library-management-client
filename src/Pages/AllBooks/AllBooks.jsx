@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Eye, Edit } from 'lucide-react';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import UsePageTitle from '../../hooks/UsePageTitle';
@@ -16,6 +16,7 @@ const AllBooks = () => {
     const [sortOption, setSortOption] = useState("");
     const baseURL = import.meta.env.VITE_BASE_URL;
     const { isAdmin } = useContext(AuthContext);
+
     useEffect(() => {
         axios.get(`${baseURL}/books`)
             .then((res) => {
@@ -45,7 +46,6 @@ const AllBooks = () => {
                 sortedBooks.sort((a, b) => a.name.localeCompare(b.name));
                 break;
             default:
-
                 break;
         }
 
@@ -105,7 +105,6 @@ const AllBooks = () => {
                         </select>
                     </div>
 
-                    {/* View Toggle */}
                     <div className="flex items-center gap-2">
                         <label className="font-semibold text-[#1a4137] whitespace-nowrap">View:</label>
                         <select
@@ -120,7 +119,6 @@ const AllBooks = () => {
                 </div>
             </div>
 
-
             {sortedBooks.length === 0 ? (
                 <div className='flex flex-col justify-center items-center min-h-[40vh] text-center'>
                     <div className="text-6xl mb-4">📚</div>
@@ -132,62 +130,108 @@ const AllBooks = () => {
                     {sortedBooks.map(book => (
                         <div
                             key={book._id}
-                            className='bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden group'
+                            className='bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden group hover:border-[#1a4137]/20'
                         >
-                            <div className='h-64 overflow-hidden bg-gray-100 flex items-center justify-center p-4'>
+                            {/* Card Header with Image */}
+                            <Link
+                                to={`/book/${book._id}`}
+                                className="relative h-64 overflow-hidden bg-gray-100 flex items-center justify-center p-4 group/image"
+                            >
                                 <img
                                     src={book.image}
                                     alt={book.name}
-                                    className="h-52 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                                    className="h-52 w-auto object-contain transition-transform duration-300 group-hover/image:scale-105"
                                     loading='lazy'
                                 />
-                            </div>
+                                {/* View Overlay - Shows on hover */}
+                                <div className="absolute inset-0 bg-[#1a4137]/0 group-hover/image:bg-[#1a4137]/80 transition-all duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
+                                    <div className="text-white text-center p-4">
+                                        <Eye className="w-8 h-8 mx-auto mb-2" />
+                                        <span className="font-semibold">View Details</span>
+                                    </div>
+                                </div>
 
-                            <div className='p-5 flex flex-col flex-grow'>
-                                <h2 className="text-xl font-bold text-[#1a4137] mb-2 line-clamp-2">{book.name}</h2>
-                                <p className="text-gray-600 mb-1"><span className="font-semibold">Author:</span> {book.author}</p>
-                                <p className="text-gray-600 mb-1"><span className="font-semibold">Category:</span> {book.category}</p>
-                                <p className="text-gray-600 mb-2"><span className="font-semibold">Rating:</span> ⭐ {book.rating}/5</p>
-
-
-                                {book.price && (
-                                    <p className="text-lg font-bold text-[#1a4137] mb-4">
-                                        Price: ${book.price}
-                                    </p>
-                                )}
-
-                                <div className="mb-4">
-                                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${book.quantity > 0
-                                        ? 'bg-green-100 text-green-800'
-                                        : 'bg-red-100 text-red-800'
+                                {/* Availability Badge */}
+                                <div className="absolute top-3 right-3">
+                                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${book.quantity > 0
+                                        ? 'bg-green-100 text-green-800 border border-green-200'
+                                        : 'bg-red-100 text-red-800 border border-red-200'
                                         }`}>
                                         {book.quantity > 0 ? `${book.quantity} Available` : 'Out of Stock'}
                                     </span>
                                 </div>
-                                <Link to={`/book/${book._id}`} className="
-    font-medium 
-    opacity-100 md:opacity-0 
-    md:group-hover:opacity-100 
-    transition-opacity duration-300 
-    text-right text-[#1a4137] hover:underline
-  ">
-                                    VIEW DETAILS
-                                </Link>
-                                {
-                                    isAdmin && (
-                                        <Link
-                                            to={`/update-book/${book._id}`}
-                                            className="mt-auto"
-                                        >
-                                            <button className="w-full bg-[#1a4137] text-white font-semibold py-3 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300 transform hover:scale-105">
-                                                Update Book
+                            </Link>
+
+                            {/* Card Content */}
+                            <div className='p-5 flex flex-col flex-grow'>
+                                <div className="mb-3">
+                                    <h2 className="text-xl font-bold text-[#1a4137] line-clamp-2 mb-1 hover:text-[#2a5c4f] transition-colors">
+                                        <Link to={`/book/${book._id}`} className="hover:underline">
+                                            {book.name}
+                                        </Link>
+                                    </h2>
+                                    <p className="text-gray-600 text-sm">
+                                        <span className="font-medium">by {book.author}</span>
+                                    </p>
+                                </div>
+
+                                <div className="space-y-2 mb-4">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm font-medium text-gray-500">Category</span>
+                                        <span className="px-3 py-1 bg-[#c6d936]/10 text-[#1a4137] rounded-full text-sm font-semibold">
+                                            {book.category}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-sm font-medium text-gray-500">Rating</span>
+                                        <div className="flex items-center gap-1">
+                                            <span className="text-yellow-500">⭐</span>
+                                            <span className="font-semibold">{book.rating}/5</span>
+                                        </div>
+                                    </div>
+                                    {book.price && (
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-sm font-medium text-gray-500">Price</span>
+                                            <span className="text-lg font-bold text-[#1a4137]">
+                                                ${book.price}
+                                            </span>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="mt-auto pt-4 border-t border-gray-100">
+                                    {isAdmin ? (
+                                        <div className="space-y-3">
+                                            <div className="flex gap-2">
+                                                <Link
+                                                    to={`/book/${book._id}`}
+                                                    className="flex-1"
+                                                >
+                                                    <button className="w-full flex items-center justify-center gap-2 text-[#1a4137] font-medium py-2.5 px-4 rounded-lg hover:bg-[#1a4137]/5 transition-all duration-300 border border-[#1a4137] hover:border-[#2a5c4f]">
+                                                        <Eye className="w-4 h-4" />
+                                                        View
+                                                    </button>
+                                                </Link>
+                                                <Link
+                                                    to={`/update-book/${book._id}`}
+                                                    className="flex-1"
+                                                >
+                                                    <button className="w-full flex items-center justify-center gap-2 bg-[#1a4137] text-white font-semibold py-2.5 px-4 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300">
+                                                        <Edit className="w-4 h-4" />
+                                                        Edit
+                                                    </button>
+                                                </Link>
+                                            </div>
+
+                                        </div>
+                                    ) : (
+                                        <Link to={`/book/${book._id}`}>
+                                            <button className="w-full bg-gradient-to-r from-[#c6d936] to-[#6dd36d] text-white font-semibold py-3 rounded-lg hover:opacity-90 transition-all duration-300 shadow-md cursor-pointer">
+                                                View Book Details
                                             </button>
                                         </Link>
-                                    )
-                                }
-
-                                <div className="mt-4 flex gap-2">
-
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -196,52 +240,59 @@ const AllBooks = () => {
             ) : (
                 <div className='bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden'>
                     <div className='overflow-x-auto'>
-                        <table className="min-w-full">
+                        <table className="min-w-full divide-y divide-gray-200">
                             <thead>
-                                <tr className='bg-[#1a4137] text-white'>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Image</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Book Details</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Category</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Rating</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Price</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Status</th>
-                                    <th className="text-left py-4 px-6 font-semibold uppercase">Action</th>
+                                <tr className='bg-gradient-to-r from-[#1a4137] to-[#2a5c4f] text-white'>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Book</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Author</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Category</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Rating</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Price</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Status</th>
+                                    <th className="py-4 px-6 text-left font-semibold uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {sortedBooks.map((book, index) => (
+                            <tbody className="divide-y divide-gray-200">
+                                {sortedBooks.map((book) => (
                                     <tr
                                         key={book._id}
-                                        className={`border-b border-gray-200 hover:bg-gray-50 transition-colors ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                                            }`}
+                                        className="hover:bg-gray-50 transition-colors duration-150"
                                     >
                                         <td className="py-4 px-6">
-                                            <img
-                                                src={book.image}
-                                                alt={book.name}
-                                                className="h-16 w-12 object-cover rounded shadow-sm"
-                                            />
-                                        </td>
-                                        <td className="py-4 px-6">
-                                            <div>
-                                                <h3 className="font-semibold text-[#1a4137] text-lg">{book.name}</h3>
-                                                <p className="text-gray-600 text-sm">by {book.author}</p>
+                                            <div className="flex items-center">
+                                                <Link to={`/book/${book._id}`} className="flex items-center">
+                                                    <img
+                                                        src={book.image}
+                                                        alt={book.name}
+                                                        className="h-14 w-10 object-cover rounded shadow-sm border border-gray-200"
+                                                    />
+                                                    <div className="ml-4">
+                                                        <h3 className="font-semibold text-[#1a4137] hover:text-[#2a5c4f] hover:underline">
+                                                            {book.name}
+                                                        </h3>
+                                                    </div>
+                                                </Link>
                                             </div>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <span className="bg-[#c6d936] text-[#1a4137] px-3 py-1 rounded-full text-sm font-semibold">
+                                            <p className="text-gray-700">{book.author}</p>
+                                        </td>
+                                        <td className="py-4 px-6">
+                                            <span className="px-3 py-1 bg-[#c6d936]/10 text-[#1a4137] rounded-full text-sm font-semibold">
                                                 {book.category}
                                             </span>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <div className="flex items-center gap-1">
-                                                <span className="text-yellow-500">⭐</span>
-                                                <span className="font-semibold">{book.rating}</span>
+                                            <div className="flex items-center">
+                                                <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-full">
+                                                    <span className="text-yellow-500">⭐</span>
+                                                    <span className="font-semibold text-gray-700">{book.rating}</span>
+                                                </div>
                                             </div>
                                         </td>
                                         <td className="py-4 px-6">
                                             {book.price ? (
-                                                <span className="font-bold text-[#1a4137] text-lg">
+                                                <span className="font-bold text-[#1a4137]">
                                                     ${book.price}
                                                 </span>
                                             ) : (
@@ -250,18 +301,38 @@ const AllBooks = () => {
                                         </td>
                                         <td className="py-4 px-6">
                                             <span className={`px-3 py-1 rounded-full text-sm font-semibold ${book.quantity > 0
-                                                ? 'bg-green-100 text-green-800'
-                                                : 'bg-red-100 text-red-800'
+                                                ? 'bg-green-100 text-green-800 border border-green-200'
+                                                : 'bg-red-100 text-red-800 border border-red-200'
                                                 }`}>
-                                                {book.quantity > 0 ? 'Available' : 'Out of Stock'}
+                                                {book.quantity > 0 ? 'In Stock' : 'Out of Stock'}
                                             </span>
                                         </td>
                                         <td className="py-4 px-6">
-                                            <Link to={`/update-book/${book._id}`}>
-                                                <button className="bg-[#1a4137] text-white px-4 py-2 rounded-lg hover:bg-[#2a5c4f] transition-colors font-semibold">
-                                                    Update
-                                                </button>
-                                            </Link>
+                                            <div className="flex items-center gap-2">
+                                                <Link to={`/book/${book._id}`}>
+                                                    <button
+                                                        className="flex items-center gap-2 text-[#1a4137] hover:text-[#2a5c4f] font-medium transition-colors cursor-pointer"
+                                                        title="View Details"
+                                                    >
+                                                        <Eye className="w-4 h-4" />
+                                                        <span>View</span>
+                                                    </button>
+                                                </Link>
+                                                {isAdmin && (
+                                                    <>
+                                                        <span className="text-gray-300">|</span>
+                                                        <Link to={`/update-book/${book._id}`}>
+                                                            <button
+                                                                className="flex items-center gap-2 text-[#1a4137] hover:text-[#2a5c4f] font-medium transition-colors cursor-pointer"
+                                                                title="Update Book"
+                                                            >
+                                                                <Edit className="w-4 h-4" />
+                                                                <span>Edit</span>
+                                                            </button>
+                                                        </Link>
+                                                    </>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}

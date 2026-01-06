@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import navLogo from '../../assets/bookLogo.jpg';
 import { AuthContext } from '../../Contexts/AuthContext/AuthContext';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { FaChevronDown, FaSignOutAlt } from 'react-icons/fa';
 
 const NavBar = () => {
@@ -9,7 +9,7 @@ const NavBar = () => {
   const [showModal, setShowModal] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const navigate = useNavigate();
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
@@ -17,6 +17,7 @@ const NavBar = () => {
         setShowModal(false);
         setShowDropdown(false);
         setIsMenuOpen(false);
+        navigate("/")
       })
       .catch(error => {
         console.error(error);
