@@ -22,7 +22,6 @@ const AddBook = () => {
     const axiosSecure = useAxiosSecure()
     const [bookData, setBookData] = useState(initialState);
     const [loading, setLoading] = useState(false);
-
     const handleChange = e => {
         const { name, value } = e.target;
         setBookData({ ...bookData, [name]: value })
@@ -94,7 +93,12 @@ const AddBook = () => {
                             accept='image/*'
                             name='image'
                             onChange={handleImageChange}
-                            className="input input-bordered w-full"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                                file:mr-4 file:py-2 file:px-4 
+                                file:rounded-md file:border-0
+                                file:text-sm file:font-medium
+                                file:bg-[#1a4137] file:text-[#c6d936]
+                                hover:file:bg-[#16352d] cursor-pointer"
                             required
                         />
                     </div>
