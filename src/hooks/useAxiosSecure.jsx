@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { AuthContext } from '../Contexts/AuthContext/AuthContext';
+
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL
