@@ -208,7 +208,7 @@ const AllBooks = () => {
                                                     to={`/book/${book._id}`}
                                                     className="flex-1"
                                                 >
-                                                    <button className="w-full flex items-center justify-center gap-2 text-[#1a4137] font-medium py-2.5 px-4 rounded-lg hover:bg-[#1a4137]/5 transition-all duration-300 border border-[#1a4137] hover:border-[#2a5c4f]">
+                                                    <button className="w-full flex items-center justify-center gap-2 text-[#1a4137] font-medium py-2.5 px-4 rounded-lg hover:bg-[#1a4137]/5 transition-all duration-300 border cursor-pointer border-[#1a4137] hover:border-[#2a5c4f]">
                                                         <Eye className="w-4 h-4" />
                                                         View
                                                     </button>
@@ -217,7 +217,7 @@ const AllBooks = () => {
                                                     to={`/update-book/${book._id}`}
                                                     className="flex-1"
                                                 >
-                                                    <button className="w-full flex items-center justify-center gap-2 bg-[#1a4137] text-white font-semibold py-2.5 px-4 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300">
+                                                    <button className="w-full flex items-center justify-center gap-2 bg-[#1a4137] text-white font-semibold py-2.5 px-4 rounded-lg hover:bg-[#2a5c4f] transition-all duration-300 cursor-pointer">
                                                         <Edit className="w-4 h-4" />
                                                         Edit
                                                     </button>
