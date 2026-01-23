@@ -69,7 +69,6 @@ const Register = () => {
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-3 sm:px-6">
             <div className="w-full max-w-6xl bg-white shadow-xl rounded-2xl md:rounded-3xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
-                {/* Form Section */}
                 <div className="p-6 sm:p-8 md:p-10">
                     <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#1a4137]">
                         Create an account
@@ -146,7 +145,6 @@ const Register = () => {
                     </p>
                 </div>
 
-                {/* Image Section */}
                 <div
                     className="hidden md:block bg-cover bg-center h-full min-h-[500px]"
                     style={{ backgroundImage: `url(${registerPicture})` }}

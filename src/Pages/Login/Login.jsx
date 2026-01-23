@@ -64,7 +64,6 @@ const Login = () => {
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-3 sm:px-6">
             <div className="w-full max-w-6xl bg-white shadow-xl rounded-2xl lg:rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
 
-                {/* Form Section */}
                 <div className="p-6 sm:p-8 md:p-10">
                     <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-[#1a4137]">
                         Login Now
@@ -94,8 +93,6 @@ const Login = () => {
                             Login
                         </button>
                     </form>
-
-                    {/* Social Login */}
                     <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6">
                         <button
                             onClick={handleGoogleSignIn}
@@ -123,7 +120,7 @@ const Login = () => {
                     </p>
                 </div>
 
-                {/* Animation Section */}
+
                 <div className="hidden lg:flex items-center justify-center p-6">
                     <div className="w-full max-w-md">
                         <Lottie animationData={loginAnimation} loop />

@@ -35,7 +35,6 @@ const Contact = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Show loading alert
         Swal.fire({
             title: 'Sending...',
             text: 'Please wait while we send your message',
@@ -47,13 +46,11 @@ const Contact = () => {
             }
         });
 
-        // Simulate API call
         try {
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             console.log('Form submitted:', formData);
 
-            // Show success alert
             Swal.fire({
                 title: 'Message Sent Successfully!',
                 text: 'Thank you for your message! We will get back to you within 24 hours.',
@@ -62,7 +59,6 @@ const Contact = () => {
                 confirmButtonText: 'OK'
             });
 
-            // Reset form
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -72,7 +68,6 @@ const Contact = () => {
             });
 
         } catch (error) {
-            // Show error alert
             Swal.fire({
                 title: 'Error!',
                 text: 'Sorry, there was an error sending your message. Please try again.',
@@ -148,7 +143,7 @@ const Contact = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30 mt-16">
-            {/* Hero Section - More Compact */}
+
             <section className="relative py-16 bg-gradient-to-r from-[#1a4137] to-[#2a5c4f] text-white overflow-hidden">
                 <div className="absolute inset-0 bg-black/10"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -164,12 +159,11 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* Main Content */}
             <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                    {/* Contact Information Sidebar */}
+
                     <div className="lg:col-span-1 space-y-6">
-                        {/* Contact Card */}
+
                         <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
                             <h2 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
                                 <div className="w-10 h-10 bg-gradient-to-r from-[#1a4137] to-[#2a5c4f] rounded-xl flex items-center justify-center">
@@ -238,7 +232,7 @@ const Contact = () => {
                             </div>
                         </div>
 
-                        {/* Quick Help Card */}
+
                         <div className="bg-gradient-to-br from-[#1a4137] to-[#2a5c4f] rounded-2xl shadow-xl p-6 text-white">
                             <h3 className="text-lg font-bold mb-4 text-center">Need Quick Help?</h3>
                             <p className="text-sm text-white/80 text-center mb-4">
@@ -254,7 +248,7 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    {/* Contact Form */}
+
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
                             <div className="text-center mb-8">
